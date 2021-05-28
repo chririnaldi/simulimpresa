@@ -1,0 +1,22 @@
+Int32 CalculateIdealCost()
+{
+    //Benchmark using a cost of 5 (the second-lowest allowed)
+    Int32 cost = 5;
+
+    var sw = new Stopwatch();
+    sw.Start();
+    this.HashPassword("microbenchmark", cost);
+    sw.Stop();
+
+    Double durationMS = sw.Elapsed.TotalMilliseconds;
+
+    //Increasing cost by 1 would double the run time.
+    //Keep increasing cost until the estimated duration is over 250 ms
+    while (durationMS < 250)
+    {
+       cost += 1;
+       durationMS *= 2;
+    }
+
+    return cost;
+}
